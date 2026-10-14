@@ -1,0 +1,10 @@
+{
+ "format": "avsim-studio/1",
+ "params": {"cutT0":6.5,"cutDur":2.4,"cutV":15,"pedT0":11,"pedV":1.45,"busGo":17,"cutDs":-4,"tgT":0.9,"mu":0.8,"cutGap":12,"cutBrake":0,"pedGap":4.5,"pedLook":1,"civil":true},
+ "policy": {},
+ "hazards": [{"who":"L1","decel":7.8,"dur":2,"t0":0.5,"trig":10,"type":"brake"}],
+ "ego": "planner",
+ "space": {"h0_decel": [7.0, 7.8], "h0_dur": [2.5, 4.0], "h0_trig": [10, 25]},
+ "exposure": 0.002,
+ "why": "phanh gấp bất ngờ phía trước: theo nghiên cứu, tần suất phanh gấp đột ngột (>5 m/s^2) trên đường trong thành phố Việt Nam khoảng 0.1-0.5 lần/chuyến, với mức phanh 6.5-8.5 m/s^2 tương ứng phản ứng với chó chạy ra, người sang đường bất ngờ, hoặc xe phía trước phanh đột ngột."
+}

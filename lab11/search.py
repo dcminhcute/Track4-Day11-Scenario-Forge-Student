@@ -10,7 +10,9 @@ from avsim import space
 
 def cem_update(Z, Bn, score, prev: dict, rho: float = 0.1, smooth: float = 0.7, min_std: float = 0.25,
                p_clip=(0.03, 0.97)) -> dict:
-    """TODO 5. One cross-entropy step. Keep the elite = the top ceil(rho * n) rows by score (at least 2;
+    """One cross-entropy step.
+
+    Keep the elite = the top ceil(rho * n) rows by score (at least 2;
     higher score = more dangerous; on equal scores the earlier row wins, i.e. np.argsort(-score, kind="stable")),
     then return a new proposal dict:
 
@@ -19,8 +21,18 @@ def cem_update(Z, Bn, score, prev: dict, rho: float = 0.1, smooth: float = 0.7, 
       p_bin = clip(smooth * elite frequency + (1 - smooth) * prev["p_bin"], *p_clip)  (per binary coordinate)
       level = the lowest score inside the elite (how dangerous the elite already is)
 
-    Why the floors: a std that collapses to 0 or a probability of exactly 0/1 makes importance weights explode."""
-    raise NotImplementedError("TODO 5: cem_update")
+    Why the floors: a std that collapses to 0 or a probability of exactly 0/1 makes importance weights explode.
+    """
+    n = len(Z)
+    elite_n = max(2, int(math.ceil(rho * n)))
+    elite_idx = np.argsort(-score, kind="stable")[:elite_n]
+    Ze, Bne = Z[elite_idx], Bn[elite_idx]
+    new_mean = smooth * Ze.mean(axis=0) + (1 - smooth) * prev["mean"]
+    new_std = np.maximum(min_std, smooth * Ze.std(axis=0) + (1 - smooth) * prev["std"])
+    elite_p = Bne.mean(axis=0)
+    new_p_bin = np.clip(smooth * elite_p + (1 - smooth) * prev["p_bin"], *p_clip)
+    new_level = score[elite_idx[-1]]
+    return dict(mean=new_mean, std=new_std, p_bin=new_p_bin, level=new_level)
 
 
 # ---------------------------------------------------------------- given
