@@ -21,6 +21,8 @@ Vì trong log phát lại, xe bám đuôi (TG) chạy đúng như người lái 
 - cutT0=8.45, cutV=13.2, tgT=1.55
 - Planner phanh sớm vì thận trọng; TG trong log không biết → đâm vào đuôi.
 
+![Va chạm phát lại log: xe bám đuôi đâm đuôi xe ta](images/replay_rear.png)
+
 ## 2. Kịch bản bất khả thi (bước B)
 
 **Luật trong `is_feasible`:**
@@ -90,7 +92,11 @@ n ≈ 96/p = 96/0.002 = **48,000 lần** (theo RUBRIC)
 | cut_in | ⚠️ | 31 (nhầm sang bus_bypass) | 10 |
 | rear_ended | ❌ | 8 (nhầm sang kiểu khác) | 18 |
 
-**Cần ảnh từ viewer (chương 9) cho mỗi kiểu. Đã chụp vào `evidence/shots/`.**
+**Ảnh từ viewer (chương 9) cho mỗi kiểu:**
+
+![bus_bypass: C2 lách qua xe buýt đâm vào xe ta lúc 12.5s](images/bus_bypass.png)
+
+![crosswalk_block: xe ta dừng trên vạch qua đường chắn lối P1](images/crosswalk_block.png)
 
 **bus_bypass:** Planner đâm vào C2 khi C2 lách qua xe buýt đỗ. Xe buýt che tầm nhìn → planner không thấy C2 → không giữ khoảng cách.
 
@@ -115,7 +121,9 @@ n ≈ 96/p = 96/0.002 = **48,000 lần** (theo RUBRIC)
 
 **Núm "an toàn" phản tác dụng:** `cautionV=5.0` giảm tốc độ thận trọng, nhưng làm tăng thất bại vì planner đi chậm → xe bám đuôi TG tiếp cận → bị đâm từ sau. Thế giới phản ứng lại.
 
-**Đã chụp ảnh bóng mờ** trong viewer với scenario mà bản sửa tránh được.
+**Ảnh bóng mờ trong viewer với scenario mà bản sửa tránh được:**
+
+![Bóng mờ: xe ta bản sửa (cutinLat=3.0) né an toàn, xe bóng mờ bản gốc va chạm](images/fix_ghost.png)
 
 ## 7. Từ mô phỏng ra đường thật
 
@@ -159,7 +167,8 @@ Ba điều xác suất không nói:
 - Tần suất mỗi chuyến: 0 × 0.002 = **0** (cận trên: 7.28×10⁻⁶)
 - So với bus_bypass: tần suất bus_bypass ≈ 2×10⁻³ >> tần suất rắc rối này
 
-**Hình:** (chưa chụp — cần mở viewer chương 10 với scene đã dựng)
+**Hình:**
+![Chương 10 xưởng kịch bản: rắc rối xe trước L1 phanh gấp](images/hazard_studio.png)
 
 **Bạn tự lái thì sao:** Planner xử lý tốt — không có va chạm để so sánh.
 
